@@ -1,0 +1,71 @@
+@() 
+  @main(""){
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; padding: 0; text-align:center}
+      #map_canvas { height: 70%; width:90%}
+      #current{ padding-top: 25px;}
+    </style>
+
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAajguMdfUt5mwY5-GdiX7epvsTu3XlcW4&sensor=true">
+    </script>
+    <script type="text/javascript">
+    function initialize() {
+    	gmaps();
+    	
+    }
+      function gmaps() {
+          var x=37.819954;
+          var y=-122.478579;
+        var myOptions = {
+          center: new google.maps.LatLng(x,y),
+          zoom: 12,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+          
+        };
+        var map = new google.maps.Map(document.getElementById('map_canvas'),
+            myOptions);
+
+		var image='@routes.Assets.at("images/sad.png")';
+		var myLatLng = new google.maps.LatLng(x,y);
+		var marker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			icon:image,
+			draggable:true,
+			title:"Wallet"
+			});
+		
+		google.maps.event.addListener(myMarker, 'dragend', function(event){
+			var myLatLng = event.latLng;
+		    var lat = myLatLng.lat();
+		    var lng = myLatLng.lng();	
+		   
+		    });
+		
+      }
+    </script>
+    
+
+  <body onload="initialize()">
+  <form action="@routes.Application.insertLost">
+  <input type="text"/> 
+  <input type="submit">
+  </form>
+  <h3 align="center"> Lost Valuables </h3>
+  
+  <div id="current"></div>​
+    <div id="map_canvas"></div>
+   
+    <br>
+    <br>
+     <iframe src="http://www.facebook.com/plugins/like.php?href=http://www.facebook.com/lostfoundappcf"
+        scrolling="no" frameborder="0"
+        style="border:none; width:450px; height:80px"></iframe>
+        <div id="mytest1"> </div>
+  
+  </body>
+
+}

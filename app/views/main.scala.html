@@ -1,0 +1,33 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/menu.css")" type="text/css" /><style>._css3m{display:none}</style>
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+       
+    </head>
+    <body style="margin-left: 30px; margin-right: 30px; text-align:center;">
+     
+     <img align="center" src="@routes.Assets.at("images/lost-and-found1.jpeg")">
+    <p class="buttons" align="right">
+	
+<span style="background-color:#EBEBEB">
+
+<ul id="css3menu1" class="topmenu">
+	<li class="topfirst"><a id="apps" href="@routes.Application.index" style="height:17px;line-height:17px;"> Home </a></li>
+	<li class="topmenu"><a id="info" href="@routes.Application.insertLost" style="height:17px;line-height:17px;"><span> Lost a valuable ? </span></a>
+	<li class="toplast"><a id="logout" href="@routes.Application.insertFound" style="height:17px;line-height:17px;"> Found a valuable ?</a></li>
+<li class="toplast"><a id="doc" href="@routes.Application.doc" style="height:17px;line-height:17px;"> About the app </a></li>
+<li class="toplast"><a id="wanted" href="@routes.Application.wanted" style="height:17px;line-height:17px;"> Most Wanted </a></li>
+
+</ul>
+</span>     
+ </p>
+        @content
+    </body>
+</html>
