@@ -6,13 +6,21 @@ import views._
 import scala.util.Random
 import scala.io.Source
 import play.api.libs.json.Json
+import java.util.Properties
+import java.io.FileReader
 
 
 object Application extends Controller {
   
-  val APP_ID = "409606552410448"
-  val app_secret = "5bec26c2aacfdf0c19ad218471b59237"
-    
+/* add a configuration file cf.properties that should contain your fb app credentials as follows:
+APP_ID=<your email>
+app_secret=<your password>
+*/
+  val credential = new Properties() 
+  credential.load(new FileReader("cf.properties"))
+  val APP_ID = credential.getProperty("APP_ID")
+  val app_secret = credential.getProperty("app_secret") 
+ 
   def index = Action { implicit request =>
     {
    val REDIRECT_URI = "http://localhost:9000/getToken"
