@@ -13,20 +13,20 @@ import java.io.FileReader
 object Application extends Controller {
   
 /* add a configuration file cf.properties that should contain your fb app credentials as follows:
-APP_ID=<your email>
-app_secret=<your password>
+app_id =<your app id>
+app_secret=<your app secret>
 */
   val credential = new Properties() 
   credential.load(new FileReader("cf.properties"))
-  val APP_ID = credential.getProperty("APP_ID")
+  val app_id = credential.getProperty("app_id")
   val app_secret = credential.getProperty("app_secret") 
  
   def index = Action { implicit request =>
     {
-   val REDIRECT_URI = "http://localhost:9000/getToken"
-   val LIST_SCOPES = "email,user_checkins,friends_checkins"
-   val UNIQUE_STRING = new Random().nextString(16)
-   val url = "https://www.facebook.com/dialog/oauth?client_id="+APP_ID+"&redirect_uri="+REDIRECT_URI+"&scope="+LIST_SCOPES+"&state="+UNIQUE_STRING
+   val redirect_uri = "http://localhost:9000/getToken"
+   val scopes = "email,user_checkins,friends_checkins"
+   val state_string = new Random().nextString(16)
+   val url = "https://www.facebook.com/dialog/oauth?client_id="+ app_id +"&redirect_uri="+ redirect_uri +"&scope="+ scopes +"&state="+ state_string
    
    Redirect(url)
     }   
@@ -34,8 +34,8 @@ app_secret=<your password>
   
   def getToken(state:String, code:String) = Action { implicit request =>
     {
-   val REDIRECT_URI = "http://localhost:9000/getToken"
-   val url = "https://graph.facebook.com/oauth/access_token?client_id="+APP_ID+"&redirect_uri="+REDIRECT_URI+"&client_secret="+app_secret+"&code="+code
+   val redirect_uri = "http://localhost:9000/getToken"
+   val url = "https://graph.facebook.com/oauth/access_token?client_id="+ app_id +"&redirect_uri="+ redirect_uri +"&client_secret="+app_secret+"&code="+code
    val source = Source.fromURL(url)
    val token = source.mkString
    source.close()
